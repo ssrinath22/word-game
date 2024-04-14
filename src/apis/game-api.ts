@@ -5,6 +5,7 @@ const sendUserQuery = (query: string): Promise<AxiosResponse<any, any>> => {
     const params = new URLSearchParams({ 'message': query });
 
     return axios.get(`http://localhost:8000/?${params.toString()}`, { withCredentials: true })
+    // return axios.get(`http://localhost:8000/?${params.toString()}`) 
         .then(response => {
             console.log(response.data);
             return response;
