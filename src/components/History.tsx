@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "@mui/material";
 import { retrieveAllInteractionsFromLocalStorage } from '../utils/UpdateLocalStorage';
+import { ArrowBack, Close, Expand, ExpandCircleDown, ExpandLessOutlined, ExpandMoreOutlined } from "@mui/icons-material";
 
 type Interaction = {
     userQuery: string;
@@ -8,48 +9,83 @@ type Interaction = {
 }
 
 type SingleInteractionProps = {
-    interaction: Interaction;
+    index: number
+    interaction: Interaction
 }
 
-const SingleInteraction: React.FC<SingleInteractionProps> = ({ interaction }) => {
+const SingleInteraction: React.FC<SingleInteractionProps> = ({ index, interaction }) => {
+    const [expanded, setExpanded] = useState<boolean>(false)
+
     return (
         <div
             // variant="outlined"
             style={{
-                // margin: '10px 20%',
-                padding: '10px',
-                display: 'flex',
-                flexDirection: 'row',
+                backgroundColor: '#FDAF7B',
+                margin: '10px 10px',
+                border: '1px solid black',
+                borderRadius: '10px',
+                padding: expanded ? '10px 10px 25px 10px' : '10px 10px 10px 10px',
+                position: 'relative',
+                maxHeight: expanded ? '100%' : '100px',
+                overflow: 'hidden',
             }}
         >
             <div
                 style={{
-                    border:'1px dashed black',
-                    width: '20%',
-                    textAlign:'center',
+                    backgroundColor: '#FFDD95',
+                    borderRadius: '100%',
+                    width: '20px',
+                    height: '20px',
+                    margin: '0 0 10px 0',
+                    textAlign: 'center',
+                    fontSize: '15px',
                 }}
             >
-                Hello World
+                {index}
             </div>
             <div
                 style={{
-                    border: '1px solid black',
-                    width: '80%',
+                    width: '100%',
+                    height: '100%',
+                    position: 'relative'
                 }}
             >
-                <b>User Query:</b> {interaction.userQuery}
+                <b> {index === 1 ? 'HINT' : interaction.userQuery} </b>
                 <br />
-                <b>Response:</b> {interaction.llmResponse}
-            </div>
+                {interaction.llmResponse}
 
+
+            </div>
+            <div
+                style={{
+                    cursor: 'pointer',
+                    position: 'absolute',
+                    bottom: 0,
+                    right: 0,
+                    width: '100%',
+                    textAlign: 'center',
+                    paddingBottom: '0px',
+                    background: 'linear-gradient(to bottom, transparent, #FDAF7B 55%)',
+                }}
+            >
+                <div
+                    onClick={() => {
+                        setExpanded(!expanded)
+                    }}
+                >
+                    {expanded ? <ExpandLessOutlined /> : <ExpandMoreOutlined />}
+
+                </div>
+            </div>
         </div>
     );
 };
 
-type historyAreaProps ={
-    isActive:boolean
+type historyAreaProps = {
+    isActive: boolean
+    setIsActive: (arg0: boolean) => void
 }
-const HistoryArea: React.FC<historyAreaProps> = ({isActive}: historyAreaProps) => {
+const HistoryArea: React.FC<historyAreaProps> = ({ isActive, setIsActive }: historyAreaProps) => {
     const [interactions, setInteractions] = useState<Interaction[] | undefined>([]);
 
     useEffect(() => {
@@ -69,20 +105,43 @@ const HistoryArea: React.FC<historyAreaProps> = ({isActive}: historyAreaProps) =
 
     return (
         <div style={{
+            color: '#3E3232',
+            backgroundColor: '#FFF8DC',
             zIndex: 100,
-            position:'absolute',
+            position: 'absolute',
             margin: '0 0',
-            width:isActive ? '30%' : '0%',
-            maxWidth: '20%',
+            width: isActive ? '18%' : '0%',
+            minWidth: isActive ? '200px' : 0,
+            height: '100%',
             overflowY: 'scroll',
-            transition:'all 1s',
+            boxShadow: '0 0 3px black',
         }}
         >
-            <h1>Interaction History</h1>
+            <div
+                style={{
+                    marginTop: '10px',
+                }}
+            >
+                <div
+                    onClick={() => setIsActive(false)}
+                    style={{
+                        border: '1px solid black',
+                        borderRadius: '100%',
+                        cursor: 'pointer',
+                        marginLeft: '45%',
+                        width: '25px',
+                        height: '25px',
+                        backgroundColor: '#FDAF7B',
+                    }}
+                >
+                    <Close />
+                </div>
+            </div>
+            <h1>Previous Guesses</h1>
             {interactions && interactions.length > 0 ? (
                 [...interactions].reverse()?.map((interaction, index) => (
                     <SingleInteraction
-                        key={index}
+                        index={interactions.length - index}
                         interaction={interaction}
                     />
                 ))

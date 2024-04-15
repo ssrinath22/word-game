@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import InputArea from '../components/Input';
 import TextArea from '../components/Output';
 import axios, { AxiosResponse } from 'axios';
-import {clearHistory,addInteractionToLocalStorage} from '../utils/UpdateLocalStorage';
+import { clearHistory, addInteractionToLocalStorage } from '../utils/UpdateLocalStorage';
 
 import '../App.css';
 import { sendUserQuery } from '../apis/game-api';
 import HistoryArea from '../components/History';
-import { History, Refresh } from '@mui/icons-material';
-import { Button } from '@mui/material';
 import GameMenu from '../components/GameMenu';
 
 
@@ -20,11 +18,10 @@ function GamePage() {
     const [historyActive, setHistoryActive] = useState<boolean>(false)
 
     const handleSubmit = async () => {
-
         setIsLoading(true)
 
         const res: AxiosResponse<any, any> = await sendUserQuery(query)
-        addInteractionToLocalStorage({userQuery:query,llmResponse:res.data})
+        addInteractionToLocalStorage({ userQuery: query, llmResponse: res.data })
 
         setIsLoading(false)
 
@@ -35,22 +32,34 @@ function GamePage() {
 
 
     return (
-        <div className="App">
-            <HistoryArea isActive={historyActive}/>
+        <div
+            className="App"
+            style={{
+                backgroundColor: '#FFF7D4',
+            }}
+        >
+            <HistoryArea isActive={historyActive} setIsActive={setHistoryActive} />
 
             <div
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent:'center',
+                    justifyContent: 'center',
+
                 }}
             >
-                <GameMenu clearHistory={clearHistory} setHistoryActive={setHistoryActive} historyActive={historyActive}/>
+                <GameMenu
+                    clearHistory={clearHistory}
+                    setHistoryActive={setHistoryActive}
+                    historyActive={historyActive} />
                 <TextArea
+                    started={started}
+                    setStarted={setStarted}
                     response={response}
                     isLoading={isLoading}
                 />
                 <InputArea
+                    started={started}
                     setQuery={setQuery}
                     query={query}
                     handleSubmit={handleSubmit}
