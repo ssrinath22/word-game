@@ -55,7 +55,7 @@ const TextArea: React.FC<OutputProps> = ({ started, setStarted, response, isLoad
                                         position: 'absolute',
                                         height: '80%',
                                     }}
-                                    src={require('/Users/sidharthsrinath/Documents/projects/word/word_ts/src/assets/crystalball_fast.gif')}
+                                    src={require('..//assets/crystalball_fast.gif')}
                                 />
                                 :
                                 response
@@ -73,7 +73,7 @@ const TextArea: React.FC<OutputProps> = ({ started, setStarted, response, isLoad
                                 position: 'absolute',
                                 height: '80%',
                             }}
-                            src={require('/Users/sidharthsrinath/Documents/projects/word/word_ts/src/assets/dog_scratching_butt.gif')}
+                            src={require('../assets/dog_scratching_butt.gif')}
                         />
                     </>
                 }
