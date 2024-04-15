@@ -1,18 +1,9 @@
 import { Button, CircularProgress, Paper, TextField } from "@mui/material"
 
-const LoadingAnimation: React.FC = () => {
-    return (
-        <CircularProgress
-            size={24}
-            style={{
-                top: '50%', // Center vertically in the parent
-                left: '50%', // Center horizontally in the parent
-                transform: 'translate(-50%, -50%)',
-            }}
-        />
-    )
-}
-
+const innerColor = '#6B240C'
+const outerColor = '#FFF8DC'
+const innerHeavyContrastColor = '#FDAF7B'
+const innerLightContrastColor = '#FFDD95'
 interface OutputProps {
     started: boolean
     setStarted: (arg0: boolean) => void
@@ -30,32 +21,55 @@ const TextArea: React.FC<OutputProps> = ({ started, setStarted, response, isLoad
                 backgroundColor: 'transparent',
                 alignItems: 'center',
                 transition: 'all 1s',
+                margin: '0 0 5px 0',
             }}>
             <div
                 className="outputText"
                 style={{
                     position: 'relative',
-                    backgroundColor: started ? '#F8FAE5' : 'transparent',
-                    padding: '5% 0',
+                    // backgroundColor: started ? innerHeavyContrastColor : 'transparent',
+                    backgroundColor: innerHeavyContrastColor,
+                    color: innerColor,
+                    padding: '3% 3%',
                     margin: '0 20%',
-                    border: started ? '1px solid lightgrey' : 'none',
+                    border: started ? `1px solid ${innerColor}` : 'none',
                     borderRadius: '5px',
                     overflow: 'hidden',
-                    minHeight:'100px',
+                    minHeight: '100px',
+                    fontSize: '28px'
                 }}
             >
                 {started ?
                     <>
-                        {isLoading ? <LoadingAnimation /> : response}
+                        {
+                            isLoading
+                                ?
+                                // <LoadingAnimation /> 
+                                <img
+                                    onClick={() => setStarted(true)}
+                                    style={{
+                                        pointerEvents: 'none',
+                                        cursor: 'pointer',
+                                        top: '10%',
+                                        left: '45%',
+                                        position: 'absolute',
+                                        height: '80%',
+                                    }}
+                                    src={require('/Users/sidharthsrinath/Documents/projects/word/word_ts/src/assets/crystalball_fast.gif')}
+                                />
+                                :
+                                response
+                        }
                     </>
                     :
                     <>
                         <img
+                            alt="dog gif"
                             onClick={() => setStarted(true)}
                             style={{
-                                cursor:'pointer',
+                                cursor: 'pointer',
                                 top: '10%',
-                                left: '35%',
+                                left: '40%',
                                 position: 'absolute',
                                 height: '80%',
                             }}
@@ -64,7 +78,7 @@ const TextArea: React.FC<OutputProps> = ({ started, setStarted, response, isLoad
                     </>
                 }
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { Send } from '@mui/icons-material';
 
+const innerColor = '#6B240C'
+const outerColor = '#FFF8DC'
+const innerHeavyContrastColor = '#FDAF7B'
+const innerLightContrastColor = '#FFDD95'
+
 interface InputProps {
     started: boolean
     handleSubmit: () => void;
@@ -25,7 +30,7 @@ const InputArea: React.FC<InputProps> = ({ started, setQuery, query, handleSubmi
             <TextField
                 disabled={!started}
                 className="inputText"
-                variant="outlined"
+                variant='outlined'
                 value={started ? query : 'Click the dog to begin the game'}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
@@ -42,7 +47,11 @@ const InputArea: React.FC<InputProps> = ({ started, setQuery, query, handleSubmi
                     ),
                 }}
                 style={{
-                    backgroundColor: started ? '#F8FAE5' : 'transparent',
+                    // border:started ? `1px solid ${innerColor}` : 'none',
+                    border:started ? `1px solid ${innerColor}` : 'none',
+                    borderRadius:'5px',
+                    // backgroundColor: started ? innerLightContrastColor : 'transparent',
+                    backgroundColor: innerLightContrastColor,
                     width: '60%',
                 }}
             />

@@ -12,6 +12,10 @@ type SingleInteractionProps = {
     index: number
     interaction: Interaction
 }
+const innerColor = '#6B240C'
+const outerColor = '#FFF8DC'
+const innerHeavyContrastColor = '#FDAF7B'
+const innerLightContrastColor = '#FFDD95'
 
 const SingleInteraction: React.FC<SingleInteractionProps> = ({ index, interaction }) => {
     const [expanded, setExpanded] = useState<boolean>(false)
@@ -20,9 +24,9 @@ const SingleInteraction: React.FC<SingleInteractionProps> = ({ index, interactio
         <div
             // variant="outlined"
             style={{
-                backgroundColor: '#FDAF7B',
+                backgroundColor: innerHeavyContrastColor,
                 margin: '10px 10px',
-                border: '1px solid black',
+                border: `1px solid ${innerColor}`,
                 borderRadius: '10px',
                 padding: expanded ? '10px 10px 25px 10px' : '10px 10px 10px 10px',
                 position: 'relative',
@@ -32,7 +36,8 @@ const SingleInteraction: React.FC<SingleInteractionProps> = ({ index, interactio
         >
             <div
                 style={{
-                    backgroundColor: '#FFDD95',
+                    backgroundColor: innerLightContrastColor,
+                    border: `1px solid ${innerColor}`,
                     borderRadius: '100%',
                     width: '20px',
                     height: '20px',
@@ -65,7 +70,7 @@ const SingleInteraction: React.FC<SingleInteractionProps> = ({ index, interactio
                     width: '100%',
                     textAlign: 'center',
                     paddingBottom: '0px',
-                    background: 'linear-gradient(to bottom, transparent, #FDAF7B 55%)',
+                    background: `linear-gradient(to bottom, transparent, ${innerHeavyContrastColor} 55%)`,
                 }}
             >
                 <div
@@ -105,8 +110,8 @@ const HistoryArea: React.FC<historyAreaProps> = ({ isActive, setIsActive }: hist
 
     return (
         <div style={{
-            color: '#3E3232',
-            backgroundColor: '#FFF8DC',
+            color: innerColor,
+            backgroundColor: outerColor,
             zIndex: 100,
             position: 'absolute',
             margin: '0 0',
@@ -114,7 +119,7 @@ const HistoryArea: React.FC<historyAreaProps> = ({ isActive, setIsActive }: hist
             minWidth: isActive ? '200px' : 0,
             height: '100%',
             overflowY: 'scroll',
-            boxShadow: '0 0 3px black',
+            boxShadow: '0 0 3px',
         }}
         >
             <div
@@ -125,13 +130,13 @@ const HistoryArea: React.FC<historyAreaProps> = ({ isActive, setIsActive }: hist
                 <div
                     onClick={() => setIsActive(false)}
                     style={{
-                        border: '1px solid black',
+                        border: `1px solid ${innerColor}`,
                         borderRadius: '100%',
                         cursor: 'pointer',
-                        marginLeft: '45%',
+                        marginLeft: '85%',
                         width: '25px',
                         height: '25px',
-                        backgroundColor: '#FDAF7B',
+                        backgroundColor: innerHeavyContrastColor,
                     }}
                 >
                     <Close />
