@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 
-// const endpoint = 'https://xlybu8czb9.execute-api.us-west-1.amazonaws.com/dev' //deployed endpoint
+const endpoint = 'https://xlybu8czb9.execute-api.us-west-1.amazonaws.com/dev' //deployed endpoint
 // const endpoint = 'https://localhost:3000/dev' //serverless offline endpoint
-const endpoint = 'http://localhost:8000' //local endpoint
+// const endpoint = 'http://localhost:8000' //local endpoint
 
 
 const sendUserQuery = (query: string): Promise<AxiosResponse<any, any>> => {
